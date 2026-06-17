@@ -46,13 +46,11 @@ const galleryItems = [
     },
 ];
 
-// 1. Селектори (згідно з твоїми CSS-класами)
 const galleryContainer = document.querySelector('.js-gallery');
-const lightbox = document.querySelector('.lightbox'); // Прибрано .js-, бо у CSS просто .lightbox
+const lightbox = document.querySelector('.lightbox');
 const lightboxImage = document.querySelector('.lightbox__image');
 const closeLightboxBtn = document.querySelector('button[data-action="close-lightbox"]');
 
-// 2. Генерація HTML-розмітки
 const galleryMarkup = galleryItems
     .map(({ preview, original, description }) => {
         return `
@@ -72,7 +70,6 @@ const galleryMarkup = galleryItems
 
 galleryContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
-
 galleryContainer.addEventListener('click', onGalleryClick);
 
 function onGalleryClick(event) {
@@ -81,19 +78,15 @@ function onGalleryClick(event) {
     const isGalleryImageEl = event.target.classList.contains('gallery__image');
     if (!isGalleryImageEl) return;
 
-    // Відкриття та підміна контенту
     lightbox.classList.add('is-open');
     lightboxImage.src = event.target.dataset.source;
     lightboxImage.alt = event.target.alt;
 }
 
-// 4. Закриття модалки
 closeLightboxBtn.addEventListener('click', onCloseLightbox);
 
 function onCloseLightbox() {
     lightbox.classList.remove('is-open');
-
-    // Очищення src після закриття (щоб при наступному кліку не мигтіло старе фото)
     lightboxImage.src = '';
     lightboxImage.alt = '';
 }
